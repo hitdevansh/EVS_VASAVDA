@@ -1,0 +1,17 @@
+.new-drop{
+    justify-content: space-between;
+    display: flex;   
+    margin-top: 1rem;
+}
+
+.orgs{
+    margin-top: 5rem;
+    margin-left: 2rem;
+    margin-right: 50rem;
+    display: block;
+}
+
+.caps{
+    margin-top: 8rem;
+    margin-right: 35rem;
+}
