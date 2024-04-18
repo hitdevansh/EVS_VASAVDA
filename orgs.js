@@ -80843,13 +80843,34 @@ function filterOrganizations(organizations, filters) {
         const roleMatch = filters.role ? (org.role && org.role.map(r => r.toLowerCase()).includes(filters.role.toLowerCase())) : true;
         const orgTypeMatch = filters.orgType ? (org.orgType && org.orgType.toLowerCase() === filters.orgType.toLowerCase()) : true;
 
-        return countryMatch && headcountMatch && roleMatch && orgTypeMatch;
+        const categoryMatch = filters.categoryMatch ? (getCategoryNameFromSlug(org,filters.categoryMatch.toLowerCase())): true;
+        
+        return categoryMatch && countryMatch && headcountMatch && roleMatch && orgTypeMatch;
     });
 }
 
+function getCategoryNameFromSlug(org,mys) {
+
+    for (let i = 0; i < org.categories.length; i++) {
+        const category = org.categories[i];
+
+        // Determine which slug to use based on the presence of 'parent'
+        const slugToCheck = category.parent ? category.parent.slug : category.slug;
+
+        // Extract the category name from the slug
+        const parts = slugToCheck.split('/');
+        const extractedCategoryName = parts.length > 2 ? parts[2].toLowerCase() : null;
+
+        // Check if the extracted category name matches the specified category name
+        if (extractedCategoryName.toLowerCase() === mys) {
+            return true; // Found a matching category
+        }
+    } 
+}
+
 const filter = {
-    categoryMatch: null,
-    country: null, // Example: 'United States' or 'Any'
+    categoryMatch: 'Carbon',
+    country: 'Australia', // Example: 'United States' or 'Any'
     headcount: null,       // Example: '11-50' or 'Any'
     role: null, // Example: 'Products & Services' or 'Any'
     orgType: null               // Example: 'Enterprise' or 'Any'
@@ -80861,7 +80882,7 @@ dropdownItems1.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filter.category = event.target.textContent;
-        const filteredOrganizations = filterOrganizations(organizations, filter);
+        filteredOrganizations = filterOrganizations(organizations, filter);
         console.log('afterr sort length is ',filteredOrganizations.length);
     });
 });
@@ -80902,5 +80923,6 @@ dropdownItems5.forEach(item => {
     });
 });
 
-const filteredOrganizations = filterOrganizations(organizations, filter);
+var filteredOrganizations = filterOrganizations(organizations, filter);
 console.log('afterr sort length is ',filteredOrganizations.length);
+console.log(filter)
