@@ -29893,10 +29893,6 @@ function displayCapital(capital) {
         cell2.textContent = cap.title;
         row.appendChild(cell2);
 
-        const cell3 = document.createElement("td");
-        cell3.textContent = cap.description;
-        row.appendChild(cell3);
-
         const cell4 = document.createElement("td");
         cell4.textContent = cap.location;
         row.appendChild(cell4);
@@ -29908,6 +29904,10 @@ function displayCapital(capital) {
         const cell6 = document.createElement("td");
         cell6.textContent = cap.orgType;
         row.appendChild(cell6);
+
+        const cell3 = document.createElement("td");
+        cell3.textContent = cap.description;
+        row.appendChild(cell3);
 
         table.appendChild(row);
     });

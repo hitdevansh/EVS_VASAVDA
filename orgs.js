@@ -80876,8 +80876,17 @@ function displayOrganizations(organizations) {
         const row = document.createElement("tr");
 
         // Assuming org is an object with properties: country, headcount, role, orgType
+        const cell0 = document.createElement("td");
+        cell0.textContent = org.recordId;
+        row.appendChild(cell0);
+
+        const cell = document.createElement("td");
+        cell.textContent = org.title;
+        row.appendChild(cell);
+
         const cell1 = document.createElement("td");
-        cell1.textContent = org.country;
+        if(org.hqLocation)
+            cell1.textContent = org.hqLocation.country;
         row.appendChild(cell1);
 
         const cell2 = document.createElement("td");
@@ -80891,6 +80900,10 @@ function displayOrganizations(organizations) {
         const cell4 = document.createElement("td");
         cell4.textContent = org.orgType;
         row.appendChild(cell4);
+
+        const cell5 = document.createElement("td");
+        cell5.textContent = org.description;
+        row.appendChild(cell5);
 
         table.appendChild(row);
     });
@@ -80912,6 +80925,8 @@ dropdownItems1.forEach(item => {
         filter.categoryMatch = event.target.textContent;
         if(filter.categoryMatch==="Any")
             filter.categoryMatch=null;
+        // let p = document.getElementsById("cat");
+        // p.innerHTML = filter.categoryMatch;
         filteredOrganizations = filterOrganizations(organizations, filter);
         console.log('afterr sort length is ',filteredOrganizations.length);
         console.log(filter);
