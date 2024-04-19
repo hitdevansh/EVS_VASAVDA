@@ -80868,9 +80868,37 @@ function getCategoryNameFromSlug(org,mys) {
     } 
 }
 
+function displayOrganizations(organizations) {
+    const table = document.querySelector("#organizationsTable tbody");
+    table.innerHTML = ""; // Clear the table
+
+    organizations.forEach(org => {
+        const row = document.createElement("tr");
+
+        // Assuming org is an object with properties: country, headcount, role, orgType
+        const cell1 = document.createElement("td");
+        cell1.textContent = org.country;
+        row.appendChild(cell1);
+
+        const cell2 = document.createElement("td");
+        cell2.textContent = org.headcount;
+        row.appendChild(cell2);
+
+        const cell3 = document.createElement("td");
+        cell3.textContent = org.role;
+        row.appendChild(cell3);
+
+        const cell4 = document.createElement("td");
+        cell4.textContent = org.orgType;
+        row.appendChild(cell4);
+
+        table.appendChild(row);
+    });
+}
+
 const filter = {
-    categoryMatch: 'Carbon',
-    country: 'Australia', // Example: 'United States' or 'Any'
+    categoryMatch: null,
+    country: null, // Example: 'United States' or 'Any'
     headcount: null,       // Example: '11-50' or 'Any'
     role: null, // Example: 'Products & Services' or 'Any'
     orgType: null               // Example: 'Enterprise' or 'Any'
@@ -80881,9 +80909,13 @@ const dropdownItems1 = document.querySelectorAll("#categoryDropdown + .dropdown-
 dropdownItems1.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
-        filter.category = event.target.textContent;
+        filter.categoryMatch = event.target.textContent;
+        if(filter.categoryMatch==="Any")
+            filter.categoryMatch=null;
         filteredOrganizations = filterOrganizations(organizations, filter);
         console.log('afterr sort length is ',filteredOrganizations.length);
+        console.log(filter);
+        displayOrganizations(filteredOrganizations);
     });
 });
 const dropdownItems2 = document.querySelectorAll("#hqLocationDropdown + .dropdown-menu .dropdown-item");
@@ -80891,8 +80923,12 @@ dropdownItems2.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filter.country = event.target.textContent;
+        if(filter.country==="Any")
+            filter.country=null;
         const filteredOrganizations = filterOrganizations(organizations, filter);
         console.log('afterr sort length is ',filteredOrganizations.length);
+        console.log(filter);
+        displayOrganizations(filteredOrganizations);
     });
 });
 const dropdownItems3 = document.querySelectorAll("#roleDropdown + .dropdown-menu .dropdown-item");
@@ -80900,8 +80936,12 @@ dropdownItems3.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filter.role = event.target.textContent;
+        if(filter.role==="Any")
+            filter.role=null;
         const filteredOrganizations = filterOrganizations(organizations, filter);
         console.log('afterr sort length is ',filteredOrganizations.length);
+        console.log(filter);
+        displayOrganizations(filteredOrganizations);
     });
 });
 const dropdownItems4 = document.querySelectorAll("#headcountDropdown + .dropdown-menu .dropdown-item");
@@ -80909,8 +80949,12 @@ dropdownItems4.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filter.headcount = event.target.textContent;
+        if(filter.headcount==="Any")
+            filter.headcount=null;
         const filteredOrganizations = filterOrganizations(organizations, filter);
         console.log('afterr sort length is ',filteredOrganizations.length);
+        console.log(filter);
+        displayOrganizations(filteredOrganizations);
     });
 });
 const dropdownItems5 = document.querySelectorAll("#orgTypeDropdown + .dropdown-menu .dropdown-item");
@@ -80918,11 +80962,16 @@ dropdownItems5.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filter.orgType = event.target.textContent;
+        if(filter.orgType==="Any")
+            filter.orgType=null;
         const filteredOrganizations = filterOrganizations(organizations, filter);
         console.log('afterr sort length is ',filteredOrganizations.length);
+        console.log(filter);
+        displayOrganizations(filteredOrganizations);
     });
 });
 
 var filteredOrganizations = filterOrganizations(organizations, filter);
 console.log('afterr sort length is ',filteredOrganizations.length);
-console.log(filter)
+console.log(filter);
+displayOrganizations(filteredOrganizations);

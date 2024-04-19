@@ -29877,6 +29877,42 @@ function getCategoryNameFromSlug(org, mys) {
     return false;
 }
 
+function displayCapital(capital) {
+    const table = document.querySelector("#capitalTable tbody");
+    table.innerHTML = ""; // Clear the table
+
+    capital.forEach(cap => {
+        const row = document.createElement("tr");
+
+        // Assuming cap is an object with properties: recordId, title, description, location, headcount, orgType
+        const cell1 = document.createElement("td");
+        cell1.textContent = cap.recordId;
+        row.appendChild(cell1);
+
+        const cell2 = document.createElement("td");
+        cell2.textContent = cap.title;
+        row.appendChild(cell2);
+
+        const cell3 = document.createElement("td");
+        cell3.textContent = cap.description;
+        row.appendChild(cell3);
+
+        const cell4 = document.createElement("td");
+        cell4.textContent = cap.location;
+        row.appendChild(cell4);
+
+        const cell5 = document.createElement("td");
+        cell5.textContent = cap.headcount;
+        row.appendChild(cell5);
+
+        const cell6 = document.createElement("td");
+        cell6.textContent = cap.orgType;
+        row.appendChild(cell6);
+
+        table.appendChild(row);
+    });
+}
+
 const filters = {
     country: null,
     orgType: null, // Example: 'United States' or 'Any'
@@ -29892,8 +29928,11 @@ dropdownItem1.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filters.capital = event.target.textContent;
+        if(filters.catpital==="Any")
+            filters.capital=null;
         const filtercapital = filtercapitals(capitals, filters);
         console.log('afterr sort length is ',filtercapital.length);
+        displayCapital(filtercapital);
     });
 });
 const dropdownItem2 = document.querySelectorAll("#d2 + .dropdown-menu .dropdown-item");
@@ -29901,8 +29940,11 @@ dropdownItem2.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filters.country = event.target.textContent;
+        if(filters.country==="Any")
+            filters.country=null;
         const filtercapital = filtercapitals(capitals, filters);
         console.log('afterr sort length is ',filtercapital.length);
+        displayCapital(filtercapital);
     });
 });
 const dropdownItem3 = document.querySelectorAll("#d3 + .dropdown-menu .dropdown-item");
@@ -29910,8 +29952,11 @@ dropdownItem3.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filters.checkSize = event.target.textContent;
+        if(filters.checkSize==="Any")
+            filters.checkSize=null;
         const filtercapital = filtercapitals(capitals, filters);
         console.log('afterr sort length is ',filtercapital.length);
+        displayCapital(filtercapital);
     });
 });
 const dropdownItem4 = document.querySelectorAll("#d4 + .dropdown-menu .dropdown-item");
@@ -29919,8 +29964,11 @@ dropdownItem4.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filters.focusaria = event.target.textContent;
+        if(filters.focusaria==="Any")
+            filters.focusaria=null;
         const filtercapital = filtercapitals(capitals, filters);
         console.log('afterr sort length is ',filtercapital.length);
+        displayCapital(filtercapital);
     });
 });
 const dropdownItem5 = document.querySelectorAll("#d5 + .dropdown-menu .dropdown-item");
@@ -29928,8 +29976,11 @@ dropdownItem5.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filters.orgType = event.target.textContent;
+        if(filters.orgType==="Any")
+            filters.orgType=null;
         const filtercapital = filtercapitals(capitals, filters);
         console.log('afterr sort length is ',filtercapital.length);
+        displayCapital(filtercapital);
     });
 });
 const dropdownItem6 = document.querySelectorAll("#d6 + .dropdown-menu .dropdown-item");
@@ -29937,8 +29988,11 @@ dropdownItem6.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filters.impactSpecific = event.target.textContent;
+        if(filters.impactSpecific==="Any")
+            filters.impactSpecific=null;
         const filtercapital = filtercapitals(capitals, filters);
         console.log('afterr sort length is ',filtercapital.length);
+        displayCapital(filtercapital);
     });
 });
 const dropdownItem7 = document.querySelectorAll("#d7 + .dropdown-menu .dropdown-item");
@@ -29946,10 +30000,14 @@ dropdownItem7.forEach(item => {
     item.addEventListener("click", function(event) {
         console.log("Dropdown item clicked:", event.target.textContent);
         filters.strategic = event.target.textContent;
+        if(filters.strategic==="Any")
+            filters.strategic=null;
         const filtercapital = filtercapitals(capitals, filters);
         console.log('afterr sort length is ',filtercapital.length);
+        displayCapital(filtercapital);
     });
 });
 
 const filteredcapital = filtercapitals(capitals, filters);
 console.log('afterr sort length is ', filteredcapital.length);
+displayCapital(filteredcapital);  
